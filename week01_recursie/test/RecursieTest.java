@@ -216,6 +216,15 @@ public class RecursieTest {
 		assertTrue(res.contains("bc"));
 		assertTrue(res.contains("abc"));
 	}
+
+	@Test
+	public void testOef11_Aantalkaarten(){
+		assertEquals(2,Recursie.aantalKaarten(1));
+		assertEquals(7,Recursie.aantalKaarten(2));
+		assertEquals(15,Recursie.aantalKaarten(3));
+		assertEquals(222,Recursie.aantalKaarten(12));
+		assertEquals(610,Recursie.aantalKaarten(20));
+	}
 	
 	
 	
