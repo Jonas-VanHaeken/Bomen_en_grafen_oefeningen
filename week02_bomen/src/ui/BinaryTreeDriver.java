@@ -20,6 +20,22 @@ public class BinaryTreeDriver {
 		// boom heeft root C en heeft links A en rechts G
 		BinaryTree<String> boom = new BinaryTree<>("C",nodeA, nodeG);
 		boom.printPreorder();
+		System.out.println("- Pre Order");
+		boom.printInorder();
+		System.out.println("- In Order");
+		boom.printPostorder();
+		System.out.println("- Post Order");
+		System.out.println("Aantal Nodes: " + boom.countNodes());
+		System.out.println("De diepte is: " + boom.getDepth());
+		System.out.println("De boom boom is " + (boom.isLeaf()?"een ":"geen ")+ "blad.");
+		System.out.println("De boom boom heeft " + boom.countLeaves() + " blaadjes.");
+		boom.getDataLeaves();
+		System.out.println("- Data Leaves");
+		System.out.println("De boom boom bevat het punt" + (boom.contains("D")?" D":" D niet"));
+		System.out.println("De boom boom bevat het punt" + (boom.contains("H")?" H":" H niet"));
+		System.out.println("De boom boom bevat het punt" + (boom.contains("F")?" F":" F niet"));
+		System.out.println("De boom boom bevat het punt" + (boom.contains("Q")?" Q":" Q niet"));
+
 	}
 
 }

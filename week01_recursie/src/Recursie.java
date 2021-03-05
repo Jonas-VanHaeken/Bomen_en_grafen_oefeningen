@@ -126,7 +126,23 @@ public class Recursie {
 
     // oefening 10;
     public static ArrayList<String> findSubstrings(String string) {
-        throw new UnsupportedOperationException("Not yet implemented");
+        if (string==null) throw new IllegalArgumentException();
+        ArrayList<String> strings = new ArrayList<>();
+        if (string.trim().isEmpty()){
+            strings.add(string);
+        }
+        if (string.length() == 1){
+            strings.add(string);
+        }
+        else {
+            for (int i = 0; i < string.length(); i++) {
+                for (int j = i+1; j <= string.length(); j++) {
+                    strings.add(string.substring(i,j));
+
+                }
+            }
+        }
+        return strings;
     }
 
 
