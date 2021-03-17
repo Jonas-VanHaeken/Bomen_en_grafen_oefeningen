@@ -17,10 +17,12 @@ public class BinaryMinHeap<E extends Comparable<E>> {
     }
 
     public E getMin() {
-        if (this.isEmpty())
+        E min;
+        if (this.isEmpty()) {
             throw new IllegalStateException("Kan niet zoeken in een lege heap");
-        //TO DO zie oefening 3
-        return null;
+        } else {
+            return this.values.get(0);
+        }
     }
 
     public boolean addValue(E value) {
@@ -36,7 +38,30 @@ public class BinaryMinHeap<E extends Comparable<E>> {
     }
 
     private void bubbleUp() {
-        //TO DO : oefening 4
+        int index = this.values.size() - 1;
+
+        while (heeftOuder(index) && ouder(index).compareTo(values.get(index)) > 0) {
+            this.wisselOm(index, ouderIndex(index));
+            index = ouderIndex(index);
+        }
+    }
+
+    private void wisselOm(int i, int j) {
+        E hulp = this.values.get(i);
+        this.values.set(i, this.values.get(j));
+        this.values.set(j, hulp);
+    }
+
+    private int ouderIndex(int index) {
+        return (index - 1) / 2;
+    }
+
+    private E ouder(int index) {
+        return values.get(ouderIndex(index));
+    }
+
+    private boolean heeftOuder(int index) {
+        return index >= 1;
     }
 
     public E removeSmallest() {
@@ -50,11 +75,52 @@ public class BinaryMinHeap<E extends Comparable<E>> {
     }
 
     private void bubbleDown() {
-        // TODO zie oefening 5
+        int index = 0; //start met de wortel
+        boolean wisselOK = true;
+        while (heeftLinkerKind(index) && wisselOK) {
+            int indexKleinsteKind = indexLinkerKind(index);
+            if (heeftRechterKind(index)
+                    && values.get(indexKleinsteKind).compareTo(values.get(indexRechterKind(index))) > 0) {
+                indexKleinsteKind = indexRechterKind(index);
+            }
+            if (values.get(index).compareTo(values.get(indexKleinsteKind)) > 0) {
+
+                this.wisselOm(index, indexKleinsteKind);
+            } else {
+                wisselOK = false;
+            }
+            index = indexKleinsteKind;
+        }
+    }
+
+    private int indexRechterKind(int index) {
+        return 2 * index + 2;
+    }
+
+    private boolean heeftRechterKind(int index) {
+        return indexRechterKind(index) < values.size();
+    }
+
+    private int indexLinkerKind(int index) {
+        return 2 * index + 1;
+    }
+
+    private boolean heeftLinkerKind(int index) {
+        return indexLinkerKind(index) < values.size();
     }
 
     public ArrayList<E> getPath(E value) {
-        // TODO zie oefening 6;
-        return null;
+        int index = this.values.indexOf(value);
+        if (index == -1) {
+            return null;
+        } else {
+            ArrayList<E> pad = new ArrayList<>();
+            pad.add(value);
+            while (index > 0) {
+                index = (index - 1) / 2; //ouder
+                pad.add(0, this.values.get(index));
+            }
+            return pad;
+        }
     }
 }
