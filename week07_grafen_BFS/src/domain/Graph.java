@@ -34,7 +34,8 @@ public class Graph {
         return this.verbindingsMatrix.length;
     }
 
-    private int[] findAncestors(int start, int destination) {// nummering van
+    private int[] findAncestors(int start, int destination) {
+        // nummering van
         // start-knoop
         // (1..aantal_knopen)
         // naar
@@ -49,8 +50,33 @@ public class Graph {
         ancestors[start - 1] = 0;
 
         // oefening 1.4
+        int aantalKnopen = getAantalKnopen();
+        int huidig = queue.remove();
+        while (huidig != destination){
+            for (int i = 1; i <= aantalKnopen; i++) {
+                if (rechtstreekseVerbinding(huidig,i)==1 && ancestors[i-1]==infty){
+                    queue.add(i);
+                    ancestors[i-1] = huidig;
+                }
+            }
+            if (!queue.isEmpty()){
+                huidig = queue.remove();
+            } else {
+                break;
+            }
+        }
+
+
 
         return ancestors;
+    }
+
+    private int rechtstreekseVerbinding(int van, int naar) {
+        return this.getVerbindingsMatrix()[van-1][naar-1];
+    }
+
+    private int[][] getVerbindingsMatrix() {
+        return verbindingsMatrix;
     }
 
     public List<Integer> findPath(int start, int destination) {
@@ -61,6 +87,15 @@ public class Graph {
         List<Integer> path = new LinkedList<>();
 
         // oefening 1.5
+        int ouder = ancestors[destination-1];
+        while( ouder != 0 && ouder != infty){
+            path.add(0, destination);
+            destination = ouder;
+            ouder = ancestors[destination-1];
+        }
+        if (ouder == 0){
+            path.add(0, destination);
+        }
 
         return path;
 
