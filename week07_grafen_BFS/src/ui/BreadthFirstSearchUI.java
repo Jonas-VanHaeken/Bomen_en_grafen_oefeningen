@@ -1,8 +1,8 @@
 package ui;
 
-import java.util.List;
-
 import domain.Graph;
+
+import java.util.List;
 
 public class BreadthFirstSearchUI {
 
